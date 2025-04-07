@@ -2,6 +2,7 @@
 <script lang="ts">
 	import type { CatalogPage } from '$lib/types';
 	import Hotspot from './Hotspot.svelte';
+	import ProductModal from './ProductModal.svelte';
 	import { getProductById } from '$lib/data/sampleData';
 
 	// Prop to pass the page data
@@ -12,15 +13,16 @@
 	const animationDuration: number = 300;
 	export let shouldAnimate: boolean = true;
 
-	// State for hotspot interactions
+	// State for product modal
+	let selectedProductId: string | null = null;
+	let showProductModal = false;
 	let activeHotspotId: string | null = null;
 
 	// Handle hotspot interactions
 	function handleHotspotClick(event: CustomEvent<{ hotspotId: string; productId: string }>) {
+		selectedProductId = event.detail.productId;
 		activeHotspotId = event.detail.hotspotId;
-		console.log(`Hotspot clicked: ${event.detail.hotspotId} for product ${event.detail.productId}`);
-		// For now, we'll just toggle the active state
-		// In the next step, we'll implement the product modal
+		showProductModal = true;
 	}
 
 	function handleHotspotHover(
@@ -28,6 +30,18 @@
 	) {
 		// We could add additional hover logic here if needed
 		console.log(`Hotspot hover: ${event.detail.hotspotId}, hovering: ${event.detail.isHovering}`);
+	}
+
+	function handleModalClose() {
+		showProductModal = false;
+		activeHotspotId = null;
+	}
+
+	function handleAddToCart(event: CustomEvent<{ productId: string; quantity: number }>) {
+		console.log(`Adding to cart: ${event.detail.quantity} of product ${event.detail.productId}`);
+		// In a later step, we'll integrate this with the cart functionality
+		showProductModal = false;
+		activeHotspotId = null;
 	}
 
 	// Placeholder for image URLs (in a real project, these would be actual images)
@@ -83,6 +97,19 @@
 			<span class="text-sm text-gray-600">Page {index + 1}</span>
 		</div>
 	</div>
+
+	<!-- Product Modal -->
+	{#if selectedProductId && showProductModal}
+		{@const product = getProductById(selectedProductId)}
+		{#if product}
+			<ProductModal
+				{product}
+				open={showProductModal}
+				on:close={handleModalClose}
+				on:addToCart={handleAddToCart}
+			/>
+		{/if}
+	{/if}
 </div>
 
 <style>
