@@ -38,3 +38,10 @@ export interface PageAnalytics {
 		count: number;
 	}[];
 }
+
+export interface PageFlipEvents {
+	flip: { page: number };
+	changeState: { state: string };
+	init: { pageCount: number };
+	update: { page: number };
+}

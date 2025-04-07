@@ -6,6 +6,9 @@
 	export let page: CatalogPage;
 	export let isActive: boolean = false;
 	export let index: number;
+	export let animationDirection: 'forward' | 'backward' | 'none' = 'none';
+	const animationDuration: number = 300;
+	export let shouldAnimate: boolean = true;
 
 	// Placeholder for image URLs (in a real project, these would be actual images)
 	// For development, we'll use placeholder colors
@@ -13,26 +16,35 @@
 	const bgColor = placeholderColors[index % placeholderColors.length];
 </script>
 
-<div class="catalog-page relative {isActive ? 'active' : ''}" style="background-color: {bgColor};">
-	<!-- Page content -->
-	<div class="page-content flex flex-col items-center justify-center h-full p-8">
-		<h2 class="text-2xl font-bold mb-4">Page {index + 1}</h2>
-		<p class="text-center mb-6">Catalog ID: {page.id}</p>
-
-		<!-- Display hotspot positions (for development) -->
-		<div class="text-sm text-gray-600 mb-4">
-			{#if page.hotspots.length > 0}
-				<p>Contains {page.hotspots.length} product hotspots</p>
-			{:else}
-				<p>No product hotspots on this page</p>
-			{/if}
+<div
+	class="catalog-page relative {isActive ? 'active' : ''}"
+	style="background-color: {bgColor};"
+	class:animate-slide-left={shouldAnimate && animationDirection === 'backward'}
+	class:animate-slide-right={shouldAnimate && animationDirection === 'forward'}
+>
+	<div class="page-content flex flex-col h-full p-8">
+		<div class="page-header border-b border-gray-200 pb-4 mb-4">
+			<h2 class="text-xl font-semibold">Page {index + 1}</h2>
+			<p class="text-sm text-gray-600">Catalog ID: {page.id}</p>
 		</div>
 
-		<!-- We'll add hotspots here in a later step -->
+		<!-- Page content -->
+		<div class="flex-grow relative">
+			<!-- This is where we'll add hotspots later -->
+			<div class="flex items-center justify-center h-full bg-gray-100 rounded-lg">
+				<div class="text-center p-6">
+					<p class="mb-2 text-lg">Page {index + 1} Content</p>
+					<p class="text-sm text-gray-500">
+						Contains {page.hotspots.length} product{page.hotspots.length !== 1 ? 's' : ''}
+					</p>
+				</div>
+			</div>
+		</div>
 
-		<!-- Page number indicator -->
-		<div class="absolute bottom-4 right-4 bg-white/70 px-3 py-1 rounded-full text-sm">
-			{index + 1}
+		<!-- Page footer -->
+		<div class="page-footer flex justify-between items-center pt-4 border-t border-gray-200 mt-4">
+			<span class="text-sm text-gray-500">Interactive Catalog</span>
+			<span class="text-sm text-gray-600">Page {index + 1}</span>
 		</div>
 	</div>
 </div>
@@ -45,10 +57,42 @@
 		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 		/* Hide overflow to prevent hotspots from appearing outside the page */
 		overflow: hidden;
+		background-color: white;
+		transition: transform 0.3s ease-out;
 	}
 
 	.catalog-page.active {
 		/* Add subtle highlight to active page */
 		box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+	}
+
+	.animate-slide-right {
+		animation: slideRight 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+	}
+
+	.animate-slide-left {
+		animation: slideLeft 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+	}
+
+	@keyframes slideRight {
+		0% {
+			transform: translateX(100%);
+			opacity: 0;
+		}
+		100% {
+			transform: translateX(0);
+			opacity: 1;
+		}
+	}
+
+	@keyframes slideLeft {
+		0% {
+			transform: translateX(-100%);
+			opacity: 0;
+		}
+		100% {
+			transform: translateX(0);
+			opacity: 1;
+		}
 	}
 </style>
