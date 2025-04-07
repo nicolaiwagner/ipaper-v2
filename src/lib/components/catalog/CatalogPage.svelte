@@ -17,7 +17,16 @@
 	<!-- Page content -->
 	<div class="page-content flex flex-col items-center justify-center h-full p-8">
 		<h2 class="text-2xl font-bold mb-4">Page {index + 1}</h2>
-		<p class="text-center mb-6">Sample catalog page with product hotspots</p>
+		<p class="text-center mb-6">Catalog ID: {page.id}</p>
+
+		<!-- Display hotspot positions (for development) -->
+		<div class="text-sm text-gray-600 mb-4">
+			{#if page.hotspots.length > 0}
+				<p>Contains {page.hotspots.length} product hotspots</p>
+			{:else}
+				<p>No product hotspots on this page</p>
+			{/if}
+		</div>
 
 		<!-- We'll add hotspots here in a later step -->
 

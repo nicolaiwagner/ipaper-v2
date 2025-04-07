@@ -25,7 +25,7 @@
 
 <div class="catalog-container flex flex-col items-center p-4 md:p-8 bg-gray-100 min-h-screen">
 	<div class="catalog-header w-full max-w-6xl mb-6">
-		<h1 class="text-3xl font-bold text-center text-gray-800">Interactive Product Catalog</h1>
+		<h1 class="text-3xl font-bold text-center text-gray-800">Product Catalog View</h1>
 	</div>
 
 	<!-- Main catalog view -->
