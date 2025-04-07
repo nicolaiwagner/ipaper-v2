@@ -1,151 +1,156 @@
 // src/lib/data/sampleData.ts
-import type { CatalogPage, Product } from '$lib/types';
+import type { Product, CatalogPage } from '$lib/types';
 
+// Sample products
 export const products: Product[] = [
 	{
 		id: 'p1',
-		name: 'Premium Office Chair',
-		description: 'Ergonomic chair with lumbar support and adjustable armrests',
-		price: 249.99,
-		imageUrl: '/images/products/chair.jpg',
+		name: 'Modern Desk Lamp',
+		description:
+			'Sleek, adjustable desk lamp with USB charging port. Perfect for your home office.',
+		price: 49.99,
+		imageUrl: '/images/desk-lamp.jpg',
 		details: {
-			material: 'Breathable mesh and premium leather',
-			warranty: '5 year manufacturer warranty',
-			dimensions: '26"W x 26"D x 38-42"H',
-			weight: '35 lbs',
-			color: 'Black/Gray'
+			Material: 'Aluminum and Steel',
+			Color: 'Matte Black',
+			Height: '45 cm'
 		}
 	},
 	{
 		id: 'p2',
-		name: 'Wooden Desk',
-		description: 'Solid oak desk with cable management system',
-		price: 399.99,
-		imageUrl: '/images/products/desk.jpg',
+		name: 'Ergonomic Office Chair',
+		description:
+			'High-back mesh chair with lumbar support and adjustable armrests for all-day comfort.',
+		price: 199.99,
+		imageUrl: '/images/office-chair.jpg',
 		details: {
-			material: 'Solid oak with metal accents',
-			warranty: '3 year manufacturer warranty',
-			dimensions: '60"W x 30"D x 29"H',
-			weight: '65 lbs',
-			color: 'Natural oak finish'
+			Material: 'Mesh and Steel Frame',
+			Color: 'Black',
+			'Weight Capacity': '120 kg'
 		}
 	},
 	{
 		id: 'p3',
-		name: 'Modern Lamp',
-		description: 'LED desk lamp with adjustable brightness and color temperature',
+		name: 'Wireless Keyboard',
+		description: 'Ultra-slim wireless keyboard with backlit keys and multi-device connectivity.',
 		price: 79.99,
-		imageUrl: '/images/products/lamp.jpg',
+		imageUrl: '/images/wireless-keyboard.jpg',
 		details: {
-			material: 'Aluminum and plastic',
-			warranty: '2 year manufacturer warranty',
-			dimensions: '6"W x 6"D x 18"H',
-			weight: '3 lbs',
-			features: 'USB charging port, touch controls'
+			Connectivity: 'Bluetooth 5.0',
+			'Battery Life': 'Up to 2 months',
+			'Compatible with': 'Windows, macOS, iOS, Android'
 		}
 	},
 	{
 		id: 'p4',
-		name: 'Wireless Keyboard',
-		description: 'Slim profile keyboard with multi-device pairing',
-		price: 89.99,
-		imageUrl: '/images/products/keyboard.jpg',
+		name: 'Premium Notebook',
+		description: 'A5 hardcover notebook with premium paper, bookmark ribbons, and elastic closure.',
+		price: 19.99,
+		imageUrl: '/images/notebook.jpg',
 		details: {
-			material: 'Aluminum and ABS plastic',
-			warranty: '1 year manufacturer warranty',
-			dimensions: '17"W x 5"D x 0.8"H',
-			weight: '1.5 lbs',
-			features: 'Backlit keys, 6-month battery life'
+			Size: 'A5 (148 x 210 mm)',
+			Pages: '192 (96 sheets)',
+			Paper: '100 gsm, Acid-free'
 		}
 	},
 	{
 		id: 'p5',
-		name: 'Monitor Stand',
-		description: 'Adjustable height monitor stand with storage drawer',
-		price: 59.99,
-		imageUrl: '/images/products/monitor-stand.jpg',
+		name: 'Minimalist Desk Organizer',
+		description: 'Wooden desk organizer with compartments for supplies and smartphone stand.',
+		price: 34.99,
+		imageUrl: '/images/desk-organizer.jpg',
 		details: {
-			material: 'Bamboo and aluminum',
-			warranty: '1 year manufacturer warranty',
-			dimensions: '22"W x 9"D x 3-6"H',
-			weight: '4 lbs',
-			features: 'Cable management, organizer drawer'
+			Material: 'Bamboo',
+			Dimensions: '25 x 15 x 12 cm',
+			Compartments: '5'
 		}
 	},
 	{
 		id: 'p6',
-		name: 'Wireless Mouse',
-		description: 'Ergonomic wireless mouse with programmable buttons',
-		price: 49.99,
-		imageUrl: '/images/products/mouse.jpg',
+		name: 'Smart LED Bulb Pack',
+		description:
+			'Set of 2 Wi-Fi enabled color-changing LED bulbs. Control via app or voice assistant.',
+		price: 29.99,
+		imageUrl: '/images/smart-bulbs.jpg',
 		details: {
-			material: 'ABS plastic with soft-touch coating',
-			warranty: '1 year manufacturer warranty',
-			dimensions: '4.5"W x 2.5"D x 1.5"H',
-			weight: '0.3 lbs',
-			features: '12000 DPI, 6 programmable buttons'
+			Brightness: '800 lumens',
+			'Color Temperature': '2700K-6500K',
+			Compatibility: 'Alexa, Google Home, HomeKit'
 		}
 	}
 ];
 
+// Sample catalog pages with hotspots
 export const catalogPages: CatalogPage[] = [
 	{
 		id: 'page1',
-		imageUrl: '/images/catalog/page1.jpg',
+		imageUrl: '/images/catalog-page-1.jpg',
 		hotspots: [
 			{
 				id: 'hs1',
-				productId: 'p1',
+				productId: 'p1', // Desk Lamp
 				position: { x: 30, y: 40 },
-				size: 40
+				size: 24
 			},
 			{
 				id: 'hs2',
-				productId: 'p2',
+				productId: 'p5', // Desk Organizer
 				position: { x: 70, y: 60 },
-				size: 40
+				size: 24
 			}
 		]
 	},
 	{
 		id: 'page2',
-		imageUrl: '/images/catalog/page2.jpg',
+		imageUrl: '/images/catalog-page-2.jpg',
 		hotspots: [
 			{
 				id: 'hs3',
-				productId: 'p3',
-				position: { x: 25, y: 45 },
-				size: 40
+				productId: 'p2', // Office Chair
+				position: { x: 50, y: 50 },
+				size: 28
 			},
 			{
 				id: 'hs4',
-				productId: 'p4',
+				productId: 'p3', // Wireless Keyboard
 				position: { x: 75, y: 30 },
-				size: 40
+				size: 22
 			}
 		]
 	},
 	{
 		id: 'page3',
-		imageUrl: '/images/catalog/page3.jpg',
+		imageUrl: '/images/catalog-page-3.jpg',
 		hotspots: [
 			{
 				id: 'hs5',
-				productId: 'p5',
-				position: { x: 40, y: 55 },
-				size: 40
+				productId: 'p6', // Smart LED Bulbs
+				position: { x: 25, y: 35 },
+				size: 22
 			},
 			{
 				id: 'hs6',
-				productId: 'p6',
-				position: { x: 65, y: 35 },
-				size: 40
+				productId: 'p4', // Premium Notebook
+				position: { x: 40, y: 70 },
+				size: 18
+			}
+		]
+	},
+	{
+		id: 'page4',
+		imageUrl: '/images/catalog-page-4.jpg',
+		hotspots: [
+			{
+				id: 'hs7',
+				productId: 'p3', // Wireless Keyboard (appearing again)
+				position: { x: 55, y: 45 },
+				size: 26
 			}
 		]
 	}
 ];
 
-// Function to get product by ID
-export function getProductById(id: string): Product | undefined {
-	return products.find((product) => product.id === id);
+// Helper function to get a product by ID
+export function getProductById(productId: string): Product | undefined {
+	return products.find((product) => product.id === productId);
 }

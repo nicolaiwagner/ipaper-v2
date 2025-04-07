@@ -1,6 +1,8 @@
 <!-- src/lib/components/catalog/CatalogPage.svelte -->
 <script lang="ts">
 	import type { CatalogPage } from '$lib/types';
+	import Hotspot from './Hotspot.svelte';
+	import { getProductById } from '$lib/data/sampleData';
 
 	// Prop to pass the page data
 	export let page: CatalogPage;
@@ -9,6 +11,24 @@
 	export let animationDirection: 'forward' | 'backward' | 'none' = 'none';
 	const animationDuration: number = 300;
 	export let shouldAnimate: boolean = true;
+
+	// State for hotspot interactions
+	let activeHotspotId: string | null = null;
+
+	// Handle hotspot interactions
+	function handleHotspotClick(event: CustomEvent<{ hotspotId: string; productId: string }>) {
+		activeHotspotId = event.detail.hotspotId;
+		console.log(`Hotspot clicked: ${event.detail.hotspotId} for product ${event.detail.productId}`);
+		// For now, we'll just toggle the active state
+		// In the next step, we'll implement the product modal
+	}
+
+	function handleHotspotHover(
+		event: CustomEvent<{ hotspotId: string; productId: string; isHovering: boolean }>
+	) {
+		// We could add additional hover logic here if needed
+		console.log(`Hotspot hover: ${event.detail.hotspotId}, hovering: ${event.detail.isHovering}`);
+	}
 
 	// Placeholder for image URLs (in a real project, these would be actual images)
 	// For development, we'll use placeholder colors
@@ -28,16 +48,32 @@
 			<p class="text-sm text-gray-600">Catalog ID: {page.id}</p>
 		</div>
 
-		<!-- Page content -->
+		<!-- Page content with hotspots -->
 		<div class="flex-grow relative">
-			<!-- This is where we'll add hotspots later -->
-			<div class="flex items-center justify-center h-full bg-gray-100 rounded-lg">
-				<div class="text-center p-6">
-					<p class="mb-2 text-lg">Page {index + 1} Content</p>
-					<p class="text-sm text-gray-500">
-						Contains {page.hotspots.length} product{page.hotspots.length !== 1 ? 's' : ''}
-					</p>
+			<div class="catalog-page-content h-full bg-gray-100 rounded-lg relative overflow-hidden">
+				<!-- Placeholder content -->
+				<div class="flex items-center justify-center h-full">
+					<div class="text-center p-6">
+						<p class="mb-2 text-lg">Page {index + 1} Content</p>
+						<p class="text-sm text-gray-500">
+							Contains {page.hotspots.length} product{page.hotspots.length !== 1 ? 's' : ''}
+						</p>
+					</div>
 				</div>
+
+				<!-- Hotspots -->
+				{#each page.hotspots as hotspot (hotspot.id)}
+					{@const product = getProductById(hotspot.productId)}
+					{#if product}
+						<Hotspot
+							{hotspot}
+							{product}
+							isActive={activeHotspotId === hotspot.id}
+							on:click={handleHotspotClick}
+							on:hover={handleHotspotHover}
+						/>
+					{/if}
+				{/each}
 			</div>
 		</div>
 

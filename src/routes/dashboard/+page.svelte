@@ -4,7 +4,7 @@
 </script>
 
 <svelte:head>
-	<title>Interactive Product Catalog</title>
+	<title>Product Catalog View - Users</title>
 </svelte:head>
 
 <main>
