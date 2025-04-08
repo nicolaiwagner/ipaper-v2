@@ -57,7 +57,7 @@
 		}
 	}
 
-	.animate-pop {
+	/* .animate-pop {
 		animation: pop 0.3s ease-out;
-	}
+	} */
 </style>

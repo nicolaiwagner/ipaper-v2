@@ -2,6 +2,7 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import { Modal, Button, Card } from 'flowbite-svelte';
+	import { CheckCircleSolid } from 'flowbite-svelte-icons';
 
 	// Props
 	export let open: boolean = false;
@@ -24,21 +25,7 @@
 		<div
 			class="bg-green-100 rounded-full p-3 mx-auto w-20 h-20 flex items-center justify-center mb-4"
 		>
-			<svg
-				class="w-12 h-12 text-green-500"
-				aria-hidden="true"
-				xmlns="http://www.w3.org/2000/svg"
-				fill="none"
-				viewBox="0 0 16 12"
-			>
-				<path
-					stroke="currentColor"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M1 5.917 5.724 10.5 15 1.5"
-				/>
-			</svg>
+			<CheckCircleSolid class="w-12 h-12 text-green-500" />
 		</div>
 
 		<h3 class="text-xl font-semibold mb-2">Thank You For Your Order!</h3>

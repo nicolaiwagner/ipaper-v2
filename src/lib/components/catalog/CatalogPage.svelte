@@ -59,6 +59,11 @@
 	// For development, we'll use placeholder colors
 	const placeholderColors = ['#f8f9fa', '#e9ecef', '#dee2e6', '#ced4da'];
 	const bgColor = placeholderColors[index % placeholderColors.length];
+
+	// Check if image path needs correction (remove /static prefix if needed)
+	function getCorrectImagePath(path: string): string {
+		return path.startsWith('/static/') ? path.substring(7) : path;
+	}
 </script>
 
 <div
@@ -76,15 +81,23 @@
 		<!-- Page content with hotspots -->
 		<div class="flex-grow relative">
 			<div class="catalog-page-content h-full bg-gray-100 rounded-lg relative overflow-hidden">
-				<!-- Placeholder content -->
-				<div class="flex items-center justify-center h-full">
-					<div class="text-center p-6">
-						<p class="mb-2 text-lg">Page {index + 1} Content</p>
-						<p class="text-sm text-gray-500">
-							Contains {page.hotspots.length} product{page.hotspots.length !== 1 ? 's' : ''}
-						</p>
+				{#if page.imageUrl}
+					<!-- Display the catalog page image as background -->
+					<div
+						class="absolute inset-0 bg-cover bg-center"
+						style="background-image: url('{getCorrectImagePath(page.imageUrl)}');"
+					></div>
+				{:else}
+					<!-- Placeholder content if no image -->
+					<div class="flex items-center justify-center h-full">
+						<div class="text-center p-6">
+							<p class="mb-2 text-lg">Page {index + 1} Content</p>
+							<p class="text-sm text-gray-500">
+								Contains {page.hotspots.length} product{page.hotspots.length !== 1 ? 's' : ''}
+							</p>
+						</div>
 					</div>
-				</div>
+				{/if}
 
 				<!-- Hotspots -->
 				{#each page.hotspots as hotspot (hotspot.id)}

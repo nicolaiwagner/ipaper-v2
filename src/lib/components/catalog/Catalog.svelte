@@ -10,6 +10,7 @@
 	import CheckoutModal from '../cart/CheckoutModal.svelte';
 	import CheckoutSuccessModal from '../cart/CheckoutSuccessModal.svelte';
 	import { Button } from 'flowbite-svelte';
+	import { ChevronLeftOutline, ChevronRightOutline } from 'flowbite-svelte-icons';
 
 	// Track whether we're in a page-turning animation
 	let isAnimating = false;
@@ -160,48 +161,26 @@
 
 			<!-- Interactive corner overlays for page turning -->
 			<button
+				type="button"
 				class="page-turn-button absolute top-0 bottom-0 right-0 w-16 md:w-24 cursor-pointer transition-colors duration-200 flex items-center justify-end pr-4 opacity-60 hover:opacity-100"
 				on:click={handleNextPage}
 				disabled={isAnimating || $currentPageIndex >= totalPages - 1}
 				aria-label="Turn to next page"
 			>
 				<div class="text-gray-700 transform scale-75 md:scale-100">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<polyline points="9 18 15 12 9 6"></polyline>
-					</svg>
+					<ChevronRightOutline size="xl" />
 				</div>
 			</button>
 
 			<button
+				type="button"
 				class="page-turn-button absolute top-0 bottom-0 left-0 w-16 md:w-24 cursor-pointer transition-colors duration-200 flex items-center justify-start pl-4 opacity-60 hover:opacity-100"
 				on:click={handlePrevPage}
 				disabled={isAnimating || $currentPageIndex <= 0}
 				aria-label="Turn to previous page"
 			>
 				<div class="text-gray-700 transform scale-75 md:scale-100">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<polyline points="15 18 9 12 15 6"></polyline>
-					</svg>
+					<ChevronLeftOutline size="xl" />
 				</div>
 			</button>
 		</div>
@@ -213,7 +192,7 @@
 				on:click={handlePrevPage}
 				disabled={isAnimating || $currentPageIndex === 0}
 			>
-				<span class="mr-2">←</span> Previous
+				<ChevronLeftOutline class="mr-2" /> Previous
 			</Button>
 
 			<div class="page-indicator text-sm text-gray-600">
@@ -225,7 +204,7 @@
 				on:click={handleNextPage}
 				disabled={isAnimating || $currentPageIndex >= totalPages - 1}
 			>
-				Next <span class="ml-2">→</span>
+				Next <ChevronRightOutline class="ml-2" />
 			</Button>
 		</div>
 	</div>
@@ -235,6 +214,7 @@
 		<div class="flex flex-wrap justify-center gap-2">
 			{#each Array(totalPages) as _, i}
 				<button
+					type="button"
 					class="thumbnail-btn p-1 rounded-md {$currentPageIndex === i
 						? 'bg-blue-100 ring-2 ring-blue-400'
 						: 'bg-gray-200 hover:bg-gray-300'}"

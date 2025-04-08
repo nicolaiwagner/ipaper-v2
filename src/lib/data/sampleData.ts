@@ -84,25 +84,25 @@ export const products: Product[] = [
 export const catalogPages: CatalogPage[] = [
 	{
 		id: 'page1',
-		imageUrl: '/images/catalog-page-1.jpg',
+		imageUrl: '/images/manhattan-walnut-office.jpg',
 		hotspots: [
 			{
 				id: 'hs1',
 				productId: 'p1', // Desk Lamp
-				position: { x: 30, y: 40 },
+				position: { x: 39, y: 26 },
 				size: 24
 			},
 			{
 				id: 'hs2',
 				productId: 'p5', // Desk Organizer
-				position: { x: 70, y: 60 },
-				size: 24
+				position: { x: 70, y: 63 },
+				size: 30
 			}
 		]
 	},
 	{
 		id: 'page2',
-		imageUrl: '/images/catalog-page-2.jpg',
+		imageUrl: '/images/black-desk.jpg',
 		hotspots: [
 			{
 				id: 'hs3',
