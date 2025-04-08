@@ -46,10 +46,17 @@
 	}
 </script>
 
-<Modal bind:open size="xl" autoclose outsideclose title={product.name} class="w-full">
+<Modal
+	bind:open
+	size="xl"
+	autoclose
+	outsideclose
+	title={product.name}
+	class="w-full bg-happy-background text-happy-paragraph"
+>
 	<div class="modal-content flex flex-col md:flex-row gap-6">
 		<!-- Product Image -->
-		<div class="product-image-container w-full md:w-1/2 bg-gray-100 rounded-lg">
+		<div class="product-image-container w-full md:w-1/2 bg-happy-secondary rounded-lg">
 			{#if product.imageUrl}
 				<img
 					src={product.imageUrl}
@@ -59,7 +66,7 @@
 			{:else}
 				<!-- Placeholder for missing image -->
 				<div class="h-64 flex items-center justify-center p-8">
-					<div class="text-center text-gray-400">
+					<div class="text-center text-happy-paragraph opacity-70">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							fill="none"
@@ -83,19 +90,25 @@
 		<!-- Product Details -->
 		<div class="product-details w-full md:w-1/2">
 			<div class="price-section mb-4">
-				<Badge color="blue" large class="text-xl font-semibold">${product.price.toFixed(2)}</Badge>
+				<Badge
+					color="dark"
+					large
+					class="text-xl font-semibold bg-happy-tertiary border-happy-tertiary"
+					>${product.price.toFixed(2)}</Badge
+				>
 			</div>
 
-			<p class="description text-gray-600 mb-4">{product.description}</p>
+			<p class="description text-happy-paragraph mb-4">{product.description}</p>
 
 			{#if product.details}
 				<div class="product-specifications mb-6">
-					<h3 class="text-lg font-medium text-gray-800 mb-2">Product Details</h3>
+					<h3 class="text-lg font-medium text-happy-headline mb-2">Product Details</h3>
 					<div class="specs-grid grid grid-cols-2 gap-2">
 						{#each Object.entries(product.details) as [key, value]}
 							<div class="spec-item">
-								<span class="spec-label text-sm text-gray-500">{key}:</span>
-								<span class="spec-value text-sm font-medium ml-1">{value}</span>
+								<span class="spec-label text-sm text-happy-paragraph opacity-75">{key}:</span>
+								<span class="spec-value text-sm font-medium ml-1 text-happy-paragraph">{value}</span
+								>
 							</div>
 						{/each}
 					</div>
@@ -105,11 +118,11 @@
 			<!-- Add to Cart Section -->
 			<div class="add-to-cart-section border-t border-gray-200 pt-4 mt-4">
 				<div class="quantity-control flex items-center mb-4">
-					<span class="text-sm text-gray-600 mr-4">Quantity:</span>
+					<span class="text-sm text-happy-paragraph mr-4">Quantity:</span>
 					<div class="flex items-center border border-gray-300 rounded">
 						<button
 							type="button"
-							class="quantity-btn px-3 py-1 text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 disabled:opacity-50"
+							class="quantity-btn px-3 py-1 text-happy-paragraph hover:bg-happy-secondary focus:outline-none focus:ring-2 focus:ring-happy-tertiary focus:ring-opacity-50 disabled:opacity-50"
 							on:click={decrementQuantity}
 							disabled={quantity <= 1}
 							aria-label="Decrease quantity"
@@ -123,7 +136,7 @@
 						>
 						<button
 							type="button"
-							class="quantity-btn px-3 py-1 text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+							class="quantity-btn px-3 py-1 text-happy-paragraph hover:bg-happy-secondary focus:outline-none focus:ring-2 focus:ring-happy-tertiary focus:ring-opacity-50"
 							on:click={incrementQuantity}
 							aria-label="Increase quantity"
 						>
@@ -133,9 +146,21 @@
 				</div>
 
 				<div class="action-buttons flex gap-3">
-					<Button color="blue" class="flex-1" on:click={handleAddToCart}>Add to Cart</Button>
+					<Button
+						color="none"
+						class="flex-1 bg-happy-button text-happy-buttonText hover:bg-opacity-90 border-none"
+						on:click={handleAddToCart}
+					>
+						Add to Cart
+					</Button>
 
-					<Button color="light" class="flex-1" on:click={handleClose}>Close</Button>
+					<Button
+						color="none"
+						class="flex-1 bg-happy-secondary text-happy-paragraph border border-gray-200 hover:bg-happy-background"
+						on:click={handleClose}
+					>
+						Close
+					</Button>
 				</div>
 			</div>
 		</div>

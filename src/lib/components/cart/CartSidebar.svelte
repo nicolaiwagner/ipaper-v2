@@ -170,7 +170,7 @@
 				<div class="flex gap-3">
 					<Button
 						color="blue"
-						class="flex-1"
+						class="flex-1 bg-happy-button text-happy-buttonText hover:bg-opacity-90"
 						on:click={handleCheckout}
 						disabled={$cartItems.length === 0}
 					>

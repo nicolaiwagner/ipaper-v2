@@ -41,6 +41,8 @@
 			A confirmation has been sent to your email address. You can continue browsing the catalog.
 		</p>
 
-		<Button color="blue" class="w-full" on:click={handleClose}>Continue Shopping</Button>
+		<Button color="blue" class="w-full bg-happy-button text-happy-buttonText" on:click={handleClose}
+			>Continue Shopping</Button
+		>
 	</div>
 </Modal>

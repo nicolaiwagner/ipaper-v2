@@ -173,14 +173,19 @@
 		</div>
 
 		<!-- Payment Information Note -->
-		<Alert color="blue">
+		<Alert color="indigo">
 			<span class="font-medium">Note:</span> This is a demo checkout. No payment will be processed, and
 			no real orders will be created.
 		</Alert>
 
 		<!-- Action Buttons -->
 		<div class="flex gap-3 pt-2">
-			<Button type="submit" color="blue" class="flex-1" disabled={isProcessing}>
+			<Button
+				type="submit"
+				color="blue"
+				class="flex-1 bg-happy-button text-happy-buttonText"
+				disabled={isProcessing}
+			>
 				{#if isProcessing}
 					<div class="flex items-center justify-center">
 						<Spinner class="mr-2" size="sm" color="white" />
