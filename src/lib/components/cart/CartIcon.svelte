@@ -3,6 +3,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import { cartStats } from '$lib/stores/cartStore';
 	import { Button, Badge } from 'flowbite-svelte';
+	import { CartOutline } from 'flowbite-svelte-icons';
 
 	// Props
 	export let position: 'top-right' | 'bottom-right' = 'top-right';
@@ -32,25 +33,11 @@
 >
 	<div class="relative">
 		<!-- Cart Icon from Flowbite -->
-		<svg
-			class="w-6 h-6 text-gray-800"
-			aria-hidden="true"
-			xmlns="http://www.w3.org/2000/svg"
-			fill="none"
-			viewBox="0 0 18 20"
-		>
-			<path
-				stroke="currentColor"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				stroke-width="2"
-				d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1"
-			/>
-		</svg>
+		<CartOutline class="w-8 h-8" />
 
 		<!-- Item count badge -->
 		{#if $cartStats.itemCount > 0}
-			<Badge color="blue" class="absolute -top-2 -right-2 animate-pop">
+			<Badge color="blue" class="absolute -top-4 -right-3 animate-pop">
 				{$cartStats.itemCount > 99 ? '99+' : $cartStats.itemCount}
 			</Badge>
 		{/if}

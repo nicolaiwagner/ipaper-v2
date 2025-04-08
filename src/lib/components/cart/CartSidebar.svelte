@@ -4,6 +4,13 @@
 	import { createEventDispatcher } from 'svelte';
 	import { Button, Card, Badge, CloseButton } from 'flowbite-svelte';
 	import { cartItems, cartStats, cartStore } from '$lib/stores/cartStore';
+	import {
+		CartOutline,
+		XSolid,
+		CameraPhotoSolid,
+		MinusOutline,
+		PlusOutline
+	} from 'flowbite-svelte-icons';
 
 	// Props
 	export let open: boolean = false;
@@ -69,21 +76,7 @@
 			<div class="flex-grow overflow-y-auto p-4">
 				{#if $cartItems.length === 0}
 					<div class="text-center py-10">
-						<svg
-							class="w-12 h-12 mx-auto text-gray-400 mb-4"
-							aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 18 20"
-						>
-							<path
-								stroke="currentColor"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="1.5"
-								d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1"
-							/>
-						</svg>
+						<CartOutline class="w-12 h-12 mx-auto text-gray-400 mb-4" />
 						<p class="text-gray-600">Your cart is empty</p>
 					</div>
 				{:else}
@@ -103,28 +96,7 @@
 													class="w-full h-full object-contain p-1"
 												/>
 											{:else}
-												<svg
-													class="w-8 h-8 text-gray-400"
-													aria-hidden="true"
-													xmlns="http://www.w3.org/2000/svg"
-													fill="none"
-													viewBox="0 0 20 18"
-												>
-													<path
-														stroke="currentColor"
-														stroke-linecap="round"
-														stroke-linejoin="round"
-														stroke-width="1.5"
-														d="M10 12.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"
-													/>
-													<path
-														stroke="currentColor"
-														stroke-linecap="round"
-														stroke-linejoin="round"
-														stroke-width="1.5"
-														d="M17 3h-2l-.447-.894A2 2 0 0 0 12.764 1H7.236a2 2 0 0 0-1.789 1.106L5 3H3a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V5a2 2 0 0 0-2-2Z"
-													/>
-												</svg>
+												<CameraPhotoSolid class="w-8 h-8 text-gray-400" />
 											{/if}
 										</div>
 
@@ -138,21 +110,7 @@
 													on:click={() => removeItem(item.productId)}
 													aria-label="Remove item"
 												>
-													<svg
-														class="w-5 h-5"
-														aria-hidden="true"
-														xmlns="http://www.w3.org/2000/svg"
-														fill="none"
-														viewBox="0 0 14 14"
-													>
-														<path
-															stroke="currentColor"
-															stroke-linecap="round"
-															stroke-linejoin="round"
-															stroke-width="2"
-															d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-														/>
-													</svg>
+													<XSolid class="w-5 h-5" />
 												</button>
 											</div>
 
@@ -165,15 +123,19 @@
 														type="button"
 														class="px-2 py-1 text-gray-600 hover:bg-gray-100"
 														on:click={() => decrementQuantity(item.productId, item.quantity)}
-														aria-label="Decrease quantity">-</button
+														aria-label="Decrease quantity"
 													>
+														<MinusOutline class="w-3 h-3" />
+													</button>
 													<span class="px-3 py-1 border-x border-gray-300">{item.quantity}</span>
 													<button
 														type="button"
 														class="px-2 py-1 text-gray-600 hover:bg-gray-100"
 														on:click={() => incrementQuantity(item.productId, item.quantity)}
-														aria-label="Increase quantity">+</button
+														aria-label="Increase quantity"
 													>
+														<PlusOutline class="w-3 h-3" />
+													</button>
 												</div>
 
 												<!-- Item Subtotal -->
