@@ -1,14 +1,45 @@
 // src/lib/stores/cartStore.ts
-import { writable, derived } from 'svelte/store';
+import { writable, derived, get } from 'svelte/store';
 import type { CartItem } from '$lib/types';
 import { getProductById } from '$lib/data/sampleData';
+import { browser } from '$app/environment';
+
+// Storage key for cart data
+const CART_STORAGE_KEY = 'interactive-catalog-cart';
 
 // Initialize the cart store
 const createCartStore = () => {
-	// Create the writable store with an empty array of cart items
-	const { subscribe, update, set } = writable<CartItem[]>([]);
+	// Function to load cart from sessionStorage
+	const loadCart = (): CartItem[] => {
+		if (!browser) return []; // Skip on server-side rendering
 
-	return {
+		try {
+			const storedCart = sessionStorage.getItem(CART_STORAGE_KEY);
+			if (storedCart) {
+				return JSON.parse(storedCart);
+			}
+		} catch (error) {
+			console.error('Failed to load cart from sessionStorage:', error);
+		}
+		return [];
+	};
+
+	// Function to save cart to sessionStorage
+	const saveCart = (items: CartItem[]): void => {
+		if (!browser) return; // Skip on server-side rendering
+
+		try {
+			sessionStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+		} catch (error) {
+			console.error('Failed to save cart to sessionStorage:', error);
+		}
+	};
+
+	// Create the writable store with initial data loaded from sessionStorage
+	const { subscribe, update, set } = writable<CartItem[]>(loadCart());
+
+	// Create a custom store with additional methods
+	const customStore = {
 		subscribe,
 
 		// Add an item to the cart or update its quantity if it already exists
@@ -16,44 +47,64 @@ const createCartStore = () => {
 			update((items) => {
 				const existingItemIndex = items.findIndex((item) => item.productId === productId);
 
+				let updatedItems;
 				if (existingItemIndex !== -1) {
 					// Item already exists, update quantity
-					const updatedItems = [...items];
+					updatedItems = [...items];
 					updatedItems[existingItemIndex] = {
 						...updatedItems[existingItemIndex],
 						quantity: updatedItems[existingItemIndex].quantity + quantity
 					};
-					return updatedItems;
 				} else {
 					// Item doesn't exist, add it
-					return [...items, { productId, quantity }];
+					updatedItems = [...items, { productId, quantity }];
 				}
+
+				// Save to sessionStorage after update
+				saveCart(updatedItems);
+				return updatedItems;
 			});
 		},
 
 		// Remove an item from the cart
 		removeItem: (productId: string) => {
-			update((items) => items.filter((item) => item.productId !== productId));
+			update((items) => {
+				const filteredItems = items.filter((item) => item.productId !== productId);
+				// Save to sessionStorage after update
+				saveCart(filteredItems);
+				return filteredItems;
+			});
 		},
 
 		// Update the quantity of an item in the cart
 		updateQuantity: (productId: string, quantity: number) => {
 			if (quantity <= 0) {
 				// If quantity is zero or negative, remove the item
-				update((items) => items.filter((item) => item.productId !== productId));
+				customStore.removeItem(productId);
 			} else {
 				// Otherwise update the quantity
-				update((items) =>
-					items.map((item) => (item.productId === productId ? { ...item, quantity } : item))
-				);
+				update((items) => {
+					const updatedItems = items.map((item) =>
+						item.productId === productId ? { ...item, quantity } : item
+					);
+					// Save to sessionStorage after update
+					saveCart(updatedItems);
+					return updatedItems;
+				});
 			}
 		},
 
 		// Clear the entire cart
 		clearCart: () => {
+			// Clear from sessionStorage
+			if (browser) {
+				sessionStorage.removeItem(CART_STORAGE_KEY);
+			}
 			set([]);
 		}
 	};
+
+	return customStore;
 };
 
 // Create and export the cart store
@@ -86,3 +137,9 @@ export const cartItems = derived(cartStore, ($cartStore) => {
 		};
 	});
 });
+
+// Helper to get latest cart count without subscription
+export function getCartCount(): number {
+	const stats = get(cartStats);
+	return stats.itemCount;
+}
