@@ -1,6 +1,5 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
-
 @plugin 'flowbite/plugin';
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -16,6 +15,18 @@
 	--color-primary-700: #eb4f27;
 	--color-primary-800: #cc4522;
 	--color-primary-900: #a5371b;
+
+	/* Happy Hues Color Palette */
+	--color-happy-background: #eff0f3;
+	--color-happy-headline: #0d0d0d;
+	--color-happy-paragraph: #2a2a2a;
+	--color-happy-button: #ff8e3c;
+	--color-happy-buttonText: #0d0d0d;
+	--color-happy-stroke: #0d0d0d;
+	--color-happy-main: #eff0f3;
+	--color-happy-highlight: #ff8e3c;
+	--color-happy-secondary: #ffffff;
+	--color-happy-tertiary: #d9376e;
 }
 
 @source "../node_modules/flowbite-svelte/dist";

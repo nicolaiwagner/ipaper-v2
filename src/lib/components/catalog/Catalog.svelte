@@ -124,13 +124,19 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
-<div class="catalog-container flex flex-col items-center p-4 md:p-8 bg-gray-100 min-h-screen">
+<div
+	class="catalog-container flex flex-col items-center p-4 md:p-8 bg-happy-background text-happy-paragraph min-h-screen"
+>
 	<div class="catalog-header w-full max-w-6xl mb-6">
-		<h1 class="text-3xl font-bold text-center text-gray-800">Product Catalog View for Users</h1>
+		<h1 class="text-3xl font-bold text-center text-happy-headline">
+			Product Catalog View for Users
+		</h1>
 	</div>
 
 	<!-- Main catalog view -->
-	<div class="catalog-viewer relative w-full max-w-6xl bg-white rounded-lg shadow-lg p-4 mb-8">
+	<div
+		class="catalog-viewer relative w-full max-w-6xl bg-happy-secondary rounded-lg shadow-lg p-4 mb-8"
+	>
 		<!-- Book-like container with shadows -->
 		<div
 			class="book-container relative mx-auto overflow-hidden rounded-lg shadow-xl"
@@ -138,7 +144,7 @@
 		>
 			<!-- Page display -->
 			<div
-				class="relative h-full w-full bg-gray-50 flex items-center justify-center overflow-hidden"
+				class="relative h-full w-full bg-happy-main flex items-center justify-center overflow-hidden"
 			>
 				<!-- Current page -->
 				<div class="absolute inset-0 overflow-hidden">
@@ -167,8 +173,8 @@
 				disabled={isAnimating || $currentPageIndex >= totalPages - 1}
 				aria-label="Turn to next page"
 			>
-				<div class="text-gray-700 transform scale-75 md:scale-100">
-					<ChevronRightOutline size="xl" />
+				<div class="text-happy-headline transform scale-75 md:scale-100">
+					<ChevronRightOutline class="custom-icon-size" size="xl" />
 				</div>
 			</button>
 
@@ -179,8 +185,8 @@
 				disabled={isAnimating || $currentPageIndex <= 0}
 				aria-label="Turn to previous page"
 			>
-				<div class="text-gray-700 transform scale-75 md:scale-100">
-					<ChevronLeftOutline size="xl" />
+				<div class="text-happy-headline transform scale-75 md:scale-100">
+					<ChevronLeftOutline class="custom-icon-size" size="xl" />
 				</div>
 			</button>
 		</div>
@@ -189,18 +195,20 @@
 		<div class="navigation-controls flex justify-between mt-6">
 			<Button
 				color="light"
+				class="bg-happy-button text-happy-buttonText hover:bg-opacity-90"
 				on:click={handlePrevPage}
 				disabled={isAnimating || $currentPageIndex === 0}
 			>
 				<ChevronLeftOutline class="mr-2" /> Previous
 			</Button>
 
-			<div class="page-indicator text-sm text-gray-600">
+			<div class="page-indicator text-sm text-happy-paragraph">
 				Page {$currentPageIndex + 1} of {totalPages}
 			</div>
 
 			<Button
 				color="light"
+				class="bg-happy-button text-happy-buttonText hover:bg-opacity-90"
 				on:click={handleNextPage}
 				disabled={isAnimating || $currentPageIndex >= totalPages - 1}
 			>
@@ -216,20 +224,20 @@
 				<button
 					type="button"
 					class="thumbnail-btn p-1 rounded-md {$currentPageIndex === i
-						? 'bg-blue-100 ring-2 ring-blue-400'
-						: 'bg-gray-200 hover:bg-gray-300'}"
+						? 'bg-happy-highlight ring-2 ring-happy-tertiary'
+						: 'bg-happy-main hover:bg-happy-secondary'}"
 					on:click={() => handleThumbnailClick(i)}
 					disabled={isAnimating}
 				>
-					<div class="w-16 h-12 flex items-center justify-center bg-white rounded">
-						<span class="text-xs text-gray-600">P{i + 1}</span>
+					<div class="w-16 h-12 flex items-center justify-center bg-happy-secondary rounded">
+						<span class="text-xs text-happy-paragraph">P{i + 1}</span>
 					</div>
 				</button>
 			{/each}
 		</div>
 	</div>
 
-	<!-- Cart Icon -->
+	<!-- Cart Icon with animations -->
 	<CartIcon on:click={handleCartIconClick} />
 
 	<!-- Cart Sidebar -->
@@ -267,6 +275,7 @@
 	.page-turn-button:first-child {
 		background: linear-gradient(to left, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.02));
 	}
+
 	/* Custom sizing for the navigation icons */
 	:global(.custom-icon-size) {
 		width: 32px !important;

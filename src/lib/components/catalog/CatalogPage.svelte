@@ -55,32 +55,30 @@
 		activeHotspotId = null;
 	}
 
-	// Placeholder for image URLs (in a real project, these would be actual images)
-	// For development, we'll use placeholder colors
-	const placeholderColors = ['#f8f9fa', '#e9ecef', '#dee2e6', '#ced4da'];
-	const bgColor = placeholderColors[index % placeholderColors.length];
-
 	// Check if image path needs correction (remove /static prefix if needed)
 	function getCorrectImagePath(path: string): string {
+		// SvelteKit serves static files from the /static folder directly at the root
+		// So if path starts with /static/, we should remove it
 		return path.startsWith('/static/') ? path.substring(7) : path;
 	}
 </script>
 
 <div
-	class="catalog-page relative {isActive ? 'active' : ''}"
-	style="background-color: {bgColor};"
+	class="catalog-page relative {isActive ? 'active' : ''} bg-happy-background text-happy-paragraph"
 	class:animate-slide-left={shouldAnimate && animationDirection === 'backward'}
 	class:animate-slide-right={shouldAnimate && animationDirection === 'forward'}
 >
 	<div class="page-content flex flex-col h-full p-8">
 		<div class="page-header border-b border-gray-200 pb-4 mb-4">
-			<h2 class="text-xl font-semibold">Page {index + 1}</h2>
-			<p class="text-sm text-gray-600">Catalog ID: {page.id}</p>
+			<h2 class="text-xl font-semibold text-happy-headline">Page {index + 1}</h2>
+			<p class="text-sm text-happy-paragraph">Catalog ID: {page.id}</p>
 		</div>
 
 		<!-- Page content with hotspots -->
 		<div class="flex-grow relative">
-			<div class="catalog-page-content h-full bg-gray-100 rounded-lg relative overflow-hidden">
+			<div
+				class="catalog-page-content h-full bg-happy-secondary rounded-lg relative overflow-hidden"
+			>
 				{#if page.imageUrl}
 					<!-- Display the catalog page image as background -->
 					<div
@@ -91,8 +89,8 @@
 					<!-- Placeholder content if no image -->
 					<div class="flex items-center justify-center h-full">
 						<div class="text-center p-6">
-							<p class="mb-2 text-lg">Page {index + 1} Content</p>
-							<p class="text-sm text-gray-500">
+							<p class="mb-2 text-lg text-happy-headline">Page {index + 1} Content</p>
+							<p class="text-sm text-happy-paragraph">
 								Contains {page.hotspots.length} product{page.hotspots.length !== 1 ? 's' : ''}
 							</p>
 						</div>
@@ -117,8 +115,8 @@
 
 		<!-- Page footer -->
 		<div class="page-footer flex justify-between items-center pt-4 border-t border-gray-200 mt-4">
-			<span class="text-sm text-gray-500">Interactive Catalog</span>
-			<span class="text-sm text-gray-600">Page {index + 1}</span>
+			<span class="text-sm text-happy-paragraph">Interactive Catalog</span>
+			<span class="text-sm text-happy-paragraph">Page {index + 1}</span>
 		</div>
 	</div>
 
@@ -144,7 +142,6 @@
 		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 		/* Hide overflow to prevent hotspots from appearing outside the page */
 		overflow: hidden;
-		background-color: white;
 		transition: transform 0.3s ease-out;
 	}
 

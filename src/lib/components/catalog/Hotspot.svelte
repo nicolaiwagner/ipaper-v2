@@ -8,7 +8,7 @@
 	export let product: Product;
 	export let isActive: boolean = false;
 
-	// Event dispatcher for handling interactions
+	// Event dispatcher
 	const dispatch = createEventDispatcher<{
 		click: { hotspotId: string; productId: string };
 		hover: { hotspotId: string; productId: string; isHovering: boolean };
@@ -35,7 +35,7 @@
 
 <button
 	type="button"
-	class="absolute transform -translate-x-1/2 -translate-y-1/2 z-10 cursor-pointer bg-transparent border-0 p-0 appearance-none flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
+	class="absolute transform -translate-x-1/2 -translate-y-1/2 z-10 cursor-pointer bg-transparent border-0 p-0 appearance-none flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-happy-tertiary focus:ring-opacity-75"
 	style="left: {hotspot.position.x}%; top: {hotspot.position.y}%;"
 	on:mouseenter={handleMouseEnter}
 	on:mouseleave={handleMouseLeave}
@@ -50,26 +50,26 @@
 	aria-haspopup="dialog"
 >
 	<span
-		class="flex items-center justify-center relative overflow-visible transition-all duration-200 ease-in-out rounded-full border-2 border-blue-500 bg-blue-500 bg-opacity-50 {isHovering ||
+		class="flex items-center justify-center relative overflow-visible transition-all duration-200 ease-in-out rounded-full border-2 border-happy-highlight bg-happy-highlight bg-opacity-50 {isHovering ||
 		isActive
 			? 'bg-opacity-80 scale-110'
 			: ''}"
 		style="width: {hotspot.size}px; height: {hotspot.size}px;"
 	>
-		<span class="hotspot-pulse absolute w-full h-full rounded-full bg-blue-500 bg-opacity-40"
+		<span class="hotspot-pulse absolute w-full h-full rounded-full bg-happy-highlight bg-opacity-40"
 		></span>
 	</span>
 
 	<!-- Preview tooltip that appears on hover -->
 	{#if isHovering && !isActive}
 		<div
-			class="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-white rounded-md shadow-lg py-2 px-3 min-w-[150px] z-20 pointer-events-none tooltip-animation"
+			class="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-happy-secondary rounded-md shadow-lg py-2 px-3 min-w-[150px] z-20 pointer-events-none tooltip-animation"
 			role="tooltip"
 		>
 			<div class="flex flex-col gap-1">
-				<h4 class="font-semibold text-sm text-gray-800 m-0">{product.name}</h4>
-				<p class="font-semibold text-sm text-blue-600 m-0">${product.price.toFixed(2)}</p>
-				<span class="text-xs text-gray-500 mt-1">Click to view details</span>
+				<h4 class="font-semibold text-sm text-happy-headline m-0">{product.name}</h4>
+				<p class="font-semibold text-sm text-happy-tertiary m-0">${product.price.toFixed(2)}</p>
+				<span class="text-xs text-happy-paragraph mt-1">Click to view details</span>
 			</div>
 		</div>
 	{/if}
