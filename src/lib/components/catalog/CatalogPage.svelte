@@ -1,9 +1,15 @@
 <!-- src/lib/components/catalog/CatalogPage.svelte -->
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
 	import type { CatalogPage } from '$lib/types';
 	import Hotspot from './Hotspot.svelte';
 	import ProductModal from './ProductModal.svelte';
 	import { getProductById } from '$lib/data/sampleData';
+
+	// Event dispatcher
+	const dispatch = createEventDispatcher<{
+		addToCart: { productId: string; quantity: number };
+	}>();
 
 	// Prop to pass the page data
 	export let page: CatalogPage;
@@ -38,8 +44,13 @@
 	}
 
 	function handleAddToCart(event: CustomEvent<{ productId: string; quantity: number }>) {
+		// Forward the event to the parent component
+		dispatch('addToCart', {
+			productId: event.detail.productId,
+			quantity: event.detail.quantity
+		});
+
 		console.log(`Adding to cart: ${event.detail.quantity} of product ${event.detail.productId}`);
-		// In a later step, we'll integrate this with the cart functionality
 		showProductModal = false;
 		activeHotspotId = null;
 	}

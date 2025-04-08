@@ -2,14 +2,25 @@
 <script lang="ts">
 	import { onMount, tick } from 'svelte';
 	import { currentPageIndex, totalPages, goToPage } from '$lib/stores/catalogStore';
+	import { cartStore } from '$lib/stores/cartStore';
 	import { catalogPages } from '$lib/data/sampleData';
 	import CatalogPage from './CatalogPage.svelte';
+	import CartIcon from '../cart/CartIcon.svelte';
+	import CartSidebar from '../cart/CartSidebar.svelte';
+	import CheckoutModal from '../cart/CheckoutModal.svelte';
+	import CheckoutSuccessModal from '../cart/CheckoutSuccessModal.svelte';
 	import { Button } from 'flowbite-svelte';
 
 	// Track whether we're in a page-turning animation
 	let isAnimating = false;
 	let animationDirection: 'forward' | 'backward' | 'none' = 'none';
 	const animationDuration = 300; // in milliseconds
+
+	// Cart state
+	let isCartOpen = false;
+	let isCheckoutOpen = false;
+	let isSuccessModalOpen = false;
+	let orderIdCompleted = '';
 
 	// Track viewport size for responsive design
 	let windowWidth = 0;
@@ -49,6 +60,40 @@
 		if (!isAnimating) {
 			turnPage(index);
 		}
+	}
+
+	// Cart functions
+	function handleCartIconClick() {
+		isCartOpen = true;
+	}
+
+	function handleCartClose() {
+		isCartOpen = false;
+	}
+
+	function handleCheckout() {
+		isCartOpen = false;
+		isCheckoutOpen = true;
+	}
+
+	function handleCheckoutClose() {
+		isCheckoutOpen = false;
+	}
+
+	function handleCheckoutSuccess(event: CustomEvent<{ orderId: string }>) {
+		orderIdCompleted = event.detail.orderId;
+		isCheckoutOpen = false;
+		isSuccessModalOpen = true;
+	}
+
+	function handleSuccessModalClose() {
+		isSuccessModalOpen = false;
+	}
+
+	// Connect CatalogPage with Cart
+	function handleAddToCart(event: CustomEvent<{ productId: string; quantity: number }>) {
+		const { productId, quantity } = event.detail;
+		cartStore.addItem(productId, quantity);
 	}
 
 	// Track window size for responsive design
@@ -102,6 +147,7 @@
 						index={$currentPageIndex}
 						{animationDirection}
 						shouldAnimate={true}
+						on:addToCart={handleAddToCart}
 					/>
 				</div>
 
@@ -202,6 +248,26 @@
 			{/each}
 		</div>
 	</div>
+
+	<!-- Cart Icon -->
+	<CartIcon on:click={handleCartIconClick} />
+
+	<!-- Cart Sidebar -->
+	<CartSidebar bind:open={isCartOpen} on:close={handleCartClose} on:checkout={handleCheckout} />
+
+	<!-- Checkout Modal -->
+	<CheckoutModal
+		bind:open={isCheckoutOpen}
+		on:close={handleCheckoutClose}
+		on:success={handleCheckoutSuccess}
+	/>
+
+	<!-- Checkout Success Modal -->
+	<CheckoutSuccessModal
+		bind:open={isSuccessModalOpen}
+		orderId={orderIdCompleted}
+		on:close={handleSuccessModalClose}
+	/>
 </div>
 
 <style>
