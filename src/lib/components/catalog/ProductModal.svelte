@@ -39,6 +39,11 @@
 			quantity -= 1;
 		}
 	}
+
+	// This function will run whenever the open state changes
+	$: if (open === false) {
+		handleClose();
+	}
 </script>
 
 <Modal bind:open size="xl" autoclose outsideclose title={product.name} class="w-full">

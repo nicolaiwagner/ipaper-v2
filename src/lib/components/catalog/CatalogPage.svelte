@@ -99,12 +99,12 @@
 	</div>
 
 	<!-- Product Modal -->
-	{#if selectedProductId && showProductModal}
+	{#if selectedProductId}
 		{@const product = getProductById(selectedProductId)}
 		{#if product}
 			<ProductModal
 				{product}
-				open={showProductModal}
+				bind:open={showProductModal}
 				on:close={handleModalClose}
 				on:addToCart={handleAddToCart}
 			/>
