@@ -1,6 +1,7 @@
 <!-- src/routes/+page.svelte -->
 <script lang="ts">
 	import Catalog from '$lib/components/catalog/Catalog.svelte';
+	import Header from '$lib/components/Header.svelte'; // Import the Header component
 </script>
 
 <svelte:head>
@@ -8,6 +9,8 @@
 </svelte:head>
 
 <main>
+	<!-- Include the Header component here -->
+	<Header />
 	<Catalog />
 </main>
 

@@ -128,9 +128,7 @@
 	class="catalog-container flex flex-col items-center p-4 md:p-8 bg-happy-background text-happy-paragraph min-h-screen"
 >
 	<div class="catalog-header w-full max-w-6xl mb-6">
-		<h1 class="text-3xl font-bold text-center text-happy-headline">
-			Product Catalog View for Users
-		</h1>
+		<h1 class="text-3xl font-bold text-center text-happy-headline">Woodland Haven</h1>
 	</div>
 
 	<!-- Main catalog view -->
